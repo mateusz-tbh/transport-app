@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Trips</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<main>
+    <div th:switch="${trips}" class="container text-center">
+        <h2 th:case="null">Brak tras</h2>
+        <div th:case="*">
+            <h2>Trasy</h2>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Wyjazd dzien</th>
+                    <th>Wyjazd godzina</th>
+                    <th>Wyjazd miejscoowsc</th>
+                    <th>Wyjazd kraj</th>
+                    <th>Wyjazd licznik</th>
+                    <th>Przyjazd dzien</th>
+                    <th>Przyjazd godzina</th>
+                    <th>Przyjazd miejscowosc</th>
+                    <th>Przyjazd kraj</th>
+                    <th>Przyjazd licznik</th>
+                    <th>Przebieg</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trip : ${trips}">
+                    <td th:text="${trip.departureDay}"></td>
+                    <td th:text="${trip.departureClock}"></td>
+                    <td th:text="${trip.departureLocation}"></td>
+                    <td th:text="${trip.departureCountry}"></td>
+                    <td th:text="${trip.departureCounter}"></td>
+                    <td th:text="${trip.arrivalDay}"></td>
+                    <td th:text="${trip.arrivalClock}"></td>
+                    <td th:text="${trip.arrivalLocation}"></td>
+                    <td th:text="${trip.arrivalCountry}"></td>
+                    <td th:text="${trip.arrivalCounter}"></td>
+                    <td th:text="${trip.course}"></td>
+                    <td>
+                        <a th:href="@{'/trip/edit/' + ${trip.id}}">Edytuj</a>
+                        &nbsp;
+                        <a th:href="@{'/trip/delete/' + ${trip.id}}">Usuń</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/trips/new}" class="btn btn-info" role="button">Dodaj nową trase</a>
+            <a th:href="@{/}" class="btn btn-info" role="button">Strona główna</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

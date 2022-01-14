@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport App Homepage</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container text-center">
+    <div><h1>System zarządzania wyjazdami</h1></div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/cards}">Lista kart</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/cards/new}">Stwórz karte</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/trips}">Lista tras</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/trips/new}">Dodaj trase</a>
+    </div>
+</div>
+</body>
+</html>
