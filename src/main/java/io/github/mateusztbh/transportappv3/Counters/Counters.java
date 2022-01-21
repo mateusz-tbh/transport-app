@@ -25,6 +25,14 @@ public class Counters {
     public Counters() {
     }
 
+    public Counters(Card card, int counterEnd, int counterStart, int counterCourse, int counterFuel) {
+        this.card = card;
+        this.counterEnd = counterEnd;
+        this.counterStart = counterStart;
+        this.counterCourse = counterCourse;
+        this.counterFuel = counterFuel;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -2,7 +2,9 @@ package io.github.mateusztbh.transportappv3.Counters;
 
 import io.github.mateusztbh.transportappv3.Card.Card;
 import io.github.mateusztbh.transportappv3.Card.CardRepository;
+import io.github.mateusztbh.transportappv3.Fuel.Fuel;
 import io.github.mateusztbh.transportappv3.Fuel.FuelRepository;
+import io.github.mateusztbh.transportappv3.Trip.Trip;
 import io.github.mateusztbh.transportappv3.Trip.TripRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +31,7 @@ public class CountersController {
         this.cardRepository = cardRepository;
     }
 
-    @GetMapping("/counters/new")
+    /*@GetMapping("/counters/new")
     public String showCountersForm(Model model, Integer id) {
         List<Card> listCards = cardRepository.findAll();
 
@@ -54,7 +56,7 @@ public class CountersController {
         return "counters";
     }
 
-    /*@GetMapping("/counters/update/{id}")
+    @GetMapping("/counters/update/{id}")
     public String testId(@PathVariable("id") Integer id, Model model) {
         List<Trip> listTrips = tripRepository.findALlByCard_Id(id);
         var variableMin = listTrips.stream()
@@ -83,7 +85,7 @@ public class CountersController {
         model.addAttribute("counters", countersRepository.findALlByCard_Id(id));
 
         return "card-trips";
-    }*/
+    }
 
     @GetMapping("/counters/delete/{id}")
     public String deleteCounter(@PathVariable("id") Integer id, Model model) {
@@ -91,5 +93,5 @@ public class CountersController {
         var result = countersRepository.findByCard_Id(id);
 
         return "redirect:/";
-    }
+    }*/
 }

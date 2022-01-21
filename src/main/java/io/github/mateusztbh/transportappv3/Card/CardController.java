@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -35,28 +36,6 @@ public class CardController {
         this.fuelRepository = fuelRepository;
         this.countersRepository = countersRepository;
     }
-
-    /**Listing all created cards */
-    /*@GetMapping("/cards")
-    public String listCards(Model model) {
-        List<Card> listCards = cardRepository.findAll();
-        model.addAttribute("listCards", listCards);
-        return "cards";
-    }*/
-
-    /**Returning form to add new card */
-    /*@GetMapping("/cards/new")
-    public String showCardNewForm(Model model) {
-        model.addAttribute("card", new Card());
-        return "card_form";
-    }*/
-
-    /**Adding new card */
-    /*@PostMapping("/card/save")
-    public String saveCard(Card card) {
-        cardRepository.save(card);
-        return "redirect:/cards";
-    }*/
 
     @GetMapping("/counters/update/{id}")
     public String updateDataFromCard(@PathVariable("id") Integer id, Model model) {
@@ -82,6 +61,8 @@ public class CardController {
         counters.setCounterFuel(sumFuel);
         countersRepository.save(counters);
 
+        model.addAttribute("cardById", cardRepository.findAllById(Collections.singleton(id)));
+
         model.addAttribute("trips", tripRepository.findALlByCard_Id(id));
         model.addAttribute("fuels", fuelRepository.findALlByCard_Id(id));
         model.addAttribute("counters", countersRepository.findALlByCard_Id(id));
@@ -93,30 +74,12 @@ public class CardController {
     @GetMapping("/list/{id}")
     public String showTripsInCard(@PathVariable("id") Integer id, Model model) {
 
+        model.addAttribute("cardById", cardRepository.findAllById(Collections.singleton(id)));
+
         model.addAttribute("trips", tripRepository.findALlByCard_Id(id));
         model.addAttribute("fuels", fuelRepository.findALlByCard_Id(id));
         model.addAttribute("counters", countersRepository.findALlByCard_Id(id));
 
         return "card-trips";
     }
-
-    /** Show form to add new trip but with ID of chosen card */
-    /*@GetMapping("/trips/new/{id}")
-    public String showNewTripForm(@PathVariable("id") Integer id, Model model) {
-//        List<Card> listCards = cardRepository.findAll();
-        Card card = cardRepository.findById(id).get();
-        Trip tripId = tripRepository.findByCard_Id(id).get(id);
-
-        model.addAttribute("trip", new Trip());
-//        model.addAttribute("listCards", listCards);
-        model.addAttribute("tripId", tripId);
-
-        return "trip_form";
-    }*/
-
-    /*@GetMapping("/delete/{id}")
-    public String deleteCard(@PathVariable("id") Integer id, Model model) {
-        cardRepository.deleteById(id);
-        return "redirect:/cards";
-    }*/
 }

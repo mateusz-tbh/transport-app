@@ -55,7 +55,13 @@
                 </tbody>
             </table>
                 <a th:href="@{/trips/new}" class="btn btn-info" role="button">Dodaj nową trase</a>
-<!--                <a th:href="@{/trips/new/{id}(id=${trip.card.id})}" class="btn btn-info" role="button">Dodaj nową trase w karcie</a>-->
+            <div th:switch="${cardById}">
+                <div th:case="*">
+                    <tr th:each="card : ${cardById}">
+                        <a th:href="@{/trips/new/{id}(id=${card.id})}" class="btn btn-info" role="button">Dodaj nową trase w karcie</a>
+                    </tr>
+                </div>
+            </div>
         </div>
     </div>
     <div th:switch="${fuels}" class="container text-center">
@@ -87,6 +93,13 @@
                 </tbody>
             </table>
             <a th:href="@{/fuel/new}" class="btn btn-info" role="button">Dodaj nowe tankowanie</a>
+            <div th:switch="${cardById}">
+                <div th:case="*">
+                    <tr th:each="card : ${cardById}">
+                        <a th:href="@{/fuel/new/{id}(id=${card.id})}" class="btn btn-info" role="button">Dodaj nowe tankowanie w karcie</a>
+                    </tr>
+                </div>
+            </div>
         </div>
     </div>
     <div th:switch="${counters}" class="container text-center">
@@ -110,16 +123,16 @@
                     <td th:text="${counters.counterCourse}"></td>
                     <td th:text="${counters.counterFuel}"></td>
                     <td>
-                        <a th:href="@{'/counters/edit/' + ${counters.id}}">Edytuj</a>
+                        <!--<a th:href="@{'/counters/edit/' + ${counters.id}}">Edytuj</a>
                         &nbsp;
-                        <a th:href="@{'/counters/delete/' + ${counters.id}}">Usuń</a>
+                        <a th:href="@{'/counters/delete/' + ${counters.id}}">Usuń</a>-->
                         &nbsp;
                         <a th:href="@{'/counters/update/' + ${counters.card.id}}">Aktualizuj</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <a th:href="@{/counters/new}" class="btn btn-info" role="button">Dodaj nowe liczniki</a>
+            <!--<a th:href="@{/counters/new}" class="btn btn-info" role="button">Dodaj nowe liczniki</a>-->
         </div>
         <a th:href="@{/}" class="btn btn-info" role="button">Strona główna</a>
     </div>

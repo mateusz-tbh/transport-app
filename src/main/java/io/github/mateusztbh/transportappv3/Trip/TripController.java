@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -41,11 +42,19 @@ public class TripController {
         model.addAttribute("trip", new Trip());
         model.addAttribute("listCards", listCards);
 
-        return "trip_form";
+        return "trip_form_by_card";
     }
 
     @PostMapping("/trip/save")
     public String saveTrip( Trip trip) {
+        trip.setCourse(trip.subtract(trip));
+        tripRepository.save(trip);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/trip/save/{id}")
+    public String saveTripByCard_Id(@RequestParam(value = "id", required = false) Integer id, Trip trip) {
         trip.setCourse(trip.subtract(trip));
         tripRepository.save(trip);
 
@@ -75,6 +84,6 @@ public class TripController {
     @GetMapping("/trip/delete/{id}")
     public String deleteTrip(@PathVariable("id") Integer id, Model model) {
         tripRepository.deleteById(id);
-        return "redirect:/trips";
+        return "redirect:/";
     }
 }
