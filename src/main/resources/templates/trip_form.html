@@ -60,7 +60,7 @@
                 <label class="col-form-label col-sm-4">Numer karty:   </label>
                 <div class="col-sm-8">
                     <select th:field="*{card}" class="form-control" required>
-                        <th:block th:each="card: ${listCards}">
+                        <th:block th:each="card : ${listCards}">
                             <option th:text="${card.number}" th:value="${card.id}" />
                         </th:block>
                     </select>

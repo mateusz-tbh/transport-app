@@ -14,16 +14,21 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Wyjazd dzien</th>
-                    <th>Wyjazd godzina</th>
-                    <th>Wyjazd miejscoowsc</th>
-                    <th>Wyjazd kraj</th>
-                    <th>Wyjazd licznik</th>
-                    <th>Przyjazd dzien</th>
-                    <th>Przyjazd godzina</th>
-                    <th>Przyjazd miejscowosc</th>
-                    <th>Przyjazd kraj</th>
-                    <th>Przyjazd licznik</th>
+                    <th colspan="5" style="border-right: 1px solid black">WYJAZD</th>
+                    <th colspan="5" style="border-right: 1px solid black">PRZYJAZD</th>
+                    <th colspan="2"></th>
+                </tr>
+                <tr>
+                    <th>Dzień</th>
+                    <th>Godzina</th>
+                    <th>Miejscowość</th>
+                    <th>Kraj</th>
+                    <th style="border-right: 1px solid black">Licznik</th>
+                    <th>Dzień</th>
+                    <th>Godzina</th>
+                    <th>Miejscowość</th>
+                    <th>Kraj</th>
+                    <th style="border-right: 1px solid black">Licznik</th>
                     <th>Przebieg</th>
                     <th></th>
                 </tr>
@@ -34,12 +39,12 @@
                     <td th:text="${trip.departureClock}"></td>
                     <td th:text="${trip.departureLocation}"></td>
                     <td th:text="${trip.departureCountry}"></td>
-                    <td th:text="${trip.departureCounter}"></td>
+                    <td th:text="${trip.departureCounter}" style="border-right: 1px solid black"></td>
                     <td th:text="${trip.arrivalDay}"></td>
                     <td th:text="${trip.arrivalClock}"></td>
                     <td th:text="${trip.arrivalLocation}"></td>
                     <td th:text="${trip.arrivalCountry}"></td>
-                    <td th:text="${trip.arrivalCounter}"></td>
+                    <td th:text="${trip.arrivalCounter}" style="border-right: 1px solid black"></td>
                     <td th:text="${trip.course}"></td>
                     <td>
                         <a th:href="@{'/trip/edit/' + ${trip.id}}">Edytuj</a>
@@ -49,9 +54,74 @@
                 </tr>
                 </tbody>
             </table>
-            <a th:href="@{/trips/new}" class="btn btn-info" role="button">Dodaj nową trase</a>
-            <a th:href="@{/}" class="btn btn-info" role="button">Strona główna</a>
+                <a th:href="@{/trips/new}" class="btn btn-info" role="button">Dodaj nową trase</a>
+<!--                <a th:href="@{/trips/new/{id}(id=${trip.card.id})}" class="btn btn-info" role="button">Dodaj nową trase w karcie</a>-->
         </div>
+    </div>
+    <div th:switch="${fuels}" class="container text-center">
+        <h2 th:case="null">Brak tankowań</h2>
+        <div th:case="*">
+            <h2>Paliwo</h2>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Data</th>
+                    <th>Miejscowość</th>
+                    <th>Licznik</th>
+                    <th>Ilość tankowania</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fuel : ${fuels}">
+                    <td th:text="${fuel.fuelDate}"></td>
+                    <td th:text="${fuel.fuelLocation}"></td>
+                    <td th:text="${fuel.fuelCounter}"></td>
+                    <td th:text="${fuel.refuelingQuantity}"></td>
+                    <td>
+                        <a th:href="@{'/fuel/edit/' + ${fuel.id}}">Edytuj</a>
+                        &nbsp;
+                        <a th:href="@{'/fuel/delete/' + ${fuel.id}}">Usuń</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/fuel/new}" class="btn btn-info" role="button">Dodaj nowe tankowanie</a>
+        </div>
+    </div>
+    <div th:switch="${counters}" class="container text-center">
+        <h2 th:case="null">Brak licznikow</h2>
+        <div th:case="*">
+            <h2>Liczniki</h2>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Licznik wyjazd</th>
+                    <th>Licznik przyjazd</th>
+                    <th>Licznik przebieg</th>
+                    <th>Suma tankowania</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="counters : ${counters}">
+                    <td th:text="${counters.counterStart}"></td>
+                    <td th:text="${counters.counterEnd}"></td>
+                    <td th:text="${counters.counterCourse}"></td>
+                    <td th:text="${counters.counterFuel}"></td>
+                    <td>
+                        <a th:href="@{'/counters/edit/' + ${counters.id}}">Edytuj</a>
+                        &nbsp;
+                        <a th:href="@{'/counters/delete/' + ${counters.id}}">Usuń</a>
+                        &nbsp;
+                        <a th:href="@{'/counters/update/' + ${counters.card.id}}">Aktualizuj</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/counters/new}" class="btn btn-info" role="button">Dodaj nowe liczniki</a>
+        </div>
+        <a th:href="@{/}" class="btn btn-info" role="button">Strona główna</a>
     </div>
 </main>
 </body>

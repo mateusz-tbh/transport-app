@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
-<div class="container text-center">
+<!--<div class="container text-center">
     <div><h1>System zarządzania wyjazdami</h1></div>
     <div class="p-2">
         <a class="h2" th:href="@{/cards}">Lista kart</a>
@@ -19,6 +19,46 @@
     </div>
     <div class="p-2">
         <a class="h2" th:href="@{/trips/new}">Dodaj trase</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/fuel/new}">Dodaj tankowanie</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/fuels}">Lista tankowań</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/counters/new}">Liczniki pojazdu</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/counters}">Lista liczników</a>
+    </div>
+</div>-->
+<div class="container text-center">
+    <div><h1>Generator kard drogowych</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Numer karty</th>
+                <th>Zarządzaj</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="card : ${listCards}">
+                <tr>
+                    <td>[[${card.number}]]</td>
+                    <td>
+                        <a th:href="@{/list/{id}(id=${card.id})}">Wybierz</a>
+                        &nbsp;
+                        <a th:href="@{'/delete/' + ${card.id}}">Usuń</a>
+                        &nbsp;
+                        <a th:href="@{/test/{id}(id=${card.id})}">Template</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <a th:href="@{/new}" class="btn btn-info" role="button">Dodaj nową karte</a>
     </div>
 </div>
 </body>

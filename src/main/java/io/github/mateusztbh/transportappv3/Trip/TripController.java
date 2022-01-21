@@ -2,6 +2,9 @@ package io.github.mateusztbh.transportappv3.Trip;
 
 import io.github.mateusztbh.transportappv3.Card.Card;
 import io.github.mateusztbh.transportappv3.Card.CardRepository;
+import io.github.mateusztbh.transportappv3.Counters.CountersController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import java.util.List;
 
 @Controller
 public class TripController {
+    private static final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @Autowired
     private TripRepository tripRepository;
@@ -29,12 +33,23 @@ public class TripController {
         return "trip_form";
     }
 
+    @GetMapping("/trips/new/{id}")
+    public String showNewTripFormByCard_Id(@PathVariable("id") Integer id, Model model) {
+
+        Card listCards = cardRepository.findById(id).get();
+
+        model.addAttribute("trip", new Trip());
+        model.addAttribute("listCards", listCards);
+
+        return "trip_form";
+    }
+
     @PostMapping("/trip/save")
-    public String saveTrip(Trip trip) {
+    public String saveTrip( Trip trip) {
         trip.setCourse(trip.subtract(trip));
         tripRepository.save(trip);
 
-        return "redirect:/trips";
+        return "redirect:/";
     }
 
     @GetMapping("/trips")
