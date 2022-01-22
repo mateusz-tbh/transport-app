@@ -50,7 +50,7 @@ public class CardController {
         var course = listTrips.stream()
                 .mapToInt(Trip::getCourse).sum();
 
-        List<Fuel> listFuels = fuelRepository.findALlByCard_Id(id);
+        List<Fuel> listFuels = fuelRepository.findAllByCard_Id(id);
         var sumFuel = listFuels.stream()
                 .mapToInt(Fuel::getRefuelingQuantity).sum();
 
@@ -64,7 +64,7 @@ public class CardController {
         model.addAttribute("cardById", cardRepository.findAllById(Collections.singleton(id)));
 
         model.addAttribute("trips", tripRepository.findALlByCard_Id(id));
-        model.addAttribute("fuels", fuelRepository.findALlByCard_Id(id));
+        model.addAttribute("fuels", fuelRepository.findAllByCard_Id(id));
         model.addAttribute("counters", countersRepository.findALlByCard_Id(id));
 
         return "card-trips";
@@ -77,7 +77,7 @@ public class CardController {
         model.addAttribute("cardById", cardRepository.findAllById(Collections.singleton(id)));
 
         model.addAttribute("trips", tripRepository.findALlByCard_Id(id));
-        model.addAttribute("fuels", fuelRepository.findALlByCard_Id(id));
+        model.addAttribute("fuels", fuelRepository.findAllByCard_Id(id));
         model.addAttribute("counters", countersRepository.findALlByCard_Id(id));
 
         return "card-trips";

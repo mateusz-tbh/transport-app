@@ -1,10 +1,10 @@
 package io.github.mateusztbh.transportappv3;
 
 import io.github.mateusztbh.transportappv3.Card.Card;
-import io.github.mateusztbh.transportappv3.Card.CardController;
 import io.github.mateusztbh.transportappv3.Card.CardRepository;
 import io.github.mateusztbh.transportappv3.Counters.Counters;
 import io.github.mateusztbh.transportappv3.Counters.CountersRepository;
+import io.github.mateusztbh.transportappv3.Fuel.FuelRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,8 @@ public class AppController {
     private CardRepository cardRepository;
     @Autowired
     private CountersRepository countersRepository;
+    @Autowired
+    private FuelRepository fuelRepository;
 
     @GetMapping("")
     public String listCards(Model model) {
@@ -56,6 +58,7 @@ public class AppController {
     @GetMapping("/test/{id}")
     public String test(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("cards", cardRepository.findAllById(Collections.singleton(id)));
+        model.addAttribute("fuels", fuelRepository.findAllByCard_Id(id));
         return "test";
     }
 }
