@@ -57,8 +57,16 @@ public class TripController {
     public String saveTripByCard_Id(@RequestParam(value = "id", required = false) Integer id, Trip trip) {
         trip.setCourse(trip.subtract(trip));
         tripRepository.save(trip);
+        var result = trip.getCard().getId();
 
-        return "redirect:/";
+        return "redirect:/list/" + result;
+    }
+
+    @PostMapping(params = "addTrip", name = "/trip/save/{id}")
+    public String addTripByCard_Id(@RequestParam(value = "id", required = false) Integer id, Trip trip, Card card) {
+//        tripRepository.save(trip);
+        card.getTrip().add(new Trip());
+        return "trip_form_by_card";
     }
 
     @GetMapping("/trips")
@@ -78,12 +86,14 @@ public class TripController {
         List<Card> listCards = cardRepository.findAll();
         model.addAttribute("listCards", listCards);
 
-        return "trip_form";
+        return "trip_form_by_card";
     }
 
     @GetMapping("/trip/delete/{id}")
     public String deleteTrip(@PathVariable("id") Integer id, Model model) {
+        var result = tripRepository.findById(id).get().getCard().getId();
+        logger.info(String.valueOf(result));
         tripRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:/list/" + result;
     }
 }

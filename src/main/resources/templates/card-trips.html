@@ -54,7 +54,7 @@
                 </tr>
                 </tbody>
             </table>
-                <a th:href="@{/trips/new}" class="btn btn-info" role="button">Dodaj nową trase</a>
+<!--                <a th:href="@{/trips/new}" class="btn btn-info" role="button">Dodaj nową trase</a>-->
             <div th:switch="${cardById}">
                 <div th:case="*">
                     <tr th:each="card : ${cardById}">
@@ -92,7 +92,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a th:href="@{/fuel/new}" class="btn btn-info" role="button">Dodaj nowe tankowanie</a>
+<!--            <a th:href="@{/fuel/new}" class="btn btn-info" role="button">Dodaj nowe tankowanie</a>-->
             <div th:switch="${cardById}">
                 <div th:case="*">
                     <tr th:each="card : ${cardById}">
@@ -109,9 +109,13 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Licznik wyjazd</th>
-                    <th>Licznik przyjazd</th>
-                    <th>Licznik przebieg</th>
+                    <th colspan="3">Licznik</th>
+                    <th colspan="1"></th>
+                </tr>
+                <tr>
+                    <th>Wyjazd</th>
+                    <th>Przyjazd</th>
+                    <th>Przebieg</th>
                     <th>Suma tankowania</th>
                     <th></th>
                 </tr>
