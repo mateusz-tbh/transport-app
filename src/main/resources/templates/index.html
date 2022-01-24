@@ -53,6 +53,7 @@
                         <a th:href="@{'/delete/' + ${card.id}}">Usuń</a>
                         &nbsp;
                         <a th:href="@{/test/{id}(id=${card.id})}">Template</a>
+                        <p th:if="${message != null}" th:text="${message}" class="alert alert-danger" role="alert"></p>
                     </td>
                 </tr>
             </th:block>

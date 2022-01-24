@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Trips</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container text-center">
+    <div><h1>List tankowań</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Numer karty</th>
+                    <th>Data</th>
+                    <th>Miejscowość</th>
+                    <th>Licznik</th>
+                    <th>Ilość tankowania</th>
+                    <th>Suma tankowania</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="fuel : ${listFuels}">
+                    <tr>
+                        <td>[[${fuel.card.number}]]</td>
+                        <td>[[${fuel.fuelDate}]]</td>
+                        <td>[[${fuel.fuelLocation}]]</td>
+                        <td>[[${fuel.fuelCounter}]]</td>
+                        <td>[[${fuel.refuelingQuantity}]]</td>
+                        <td>[[${fuel.refuelingSum}]]</td>
+                        <td>
+                            <a th:href="@{'/fuel/edit/' + ${fuel.id}}">Edytuj</a>
+                            &nbsp;
+                            <a th:href="@{'/fuel/delete/' + ${fuel.id}}">Usuń</a>
+
+                            <a th:href="@{'/fuel/result/' + ${fuel.id}}">Sumuj</a>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        <a th:href="@{/fuel/new}" class="btn btn-info" role="button">Dodaj nowe tankowanie</a>
+        <a th:href="@{/}" class="btn btn-info" role="button">Strona główna</a>
+    </div>
+</div>
+</body>
+</html>

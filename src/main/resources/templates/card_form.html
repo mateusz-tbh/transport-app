@@ -15,9 +15,7 @@
                     <label class="col-form-label col-sm-4">Numer karty: </label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{number}" class="form-control" required>
-                    <div class="alert alert-danger" role="alert">
-                        <p th:if="${message != null}" th:text="${message}"></p>
-                    </div>
+                    <p th:if="${message != null}" th:text="${message}" class="alert alert-danger" role="alert"></p>
                 </div>
             </div>
             <div class="text-center p-3">

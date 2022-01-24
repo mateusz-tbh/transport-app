@@ -4,7 +4,10 @@ import io.github.mateusztbh.transportappv3.Card.Card;
 import io.github.mateusztbh.transportappv3.Card.CardRepository;
 import io.github.mateusztbh.transportappv3.Counters.Counters;
 import io.github.mateusztbh.transportappv3.Counters.CountersRepository;
+import io.github.mateusztbh.transportappv3.Fuel.Fuel;
 import io.github.mateusztbh.transportappv3.Fuel.FuelRepository;
+import io.github.mateusztbh.transportappv3.Trip.Trip;
+import io.github.mateusztbh.transportappv3.Trip.TripRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,6 +36,8 @@ public class AppController {
     private CountersRepository countersRepository;
     @Autowired
     private FuelRepository fuelRepository;
+    @Autowired
+    private TripRepository tripRepository;
 
     @GetMapping("")
     public String listCards(Model model) {
@@ -60,10 +70,33 @@ public class AppController {
         return "redirect:/";
     }
 
-    @GetMapping("/test/{id}")
+/*    @GetMapping("/test/{id}")
     public String test(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("cards", cardRepository.findAllById(Collections.singleton(id)));
         model.addAttribute("fuels", fuelRepository.findAllByCard_Id(id));
         return "test";
+    }*/
+
+    @GetMapping("/test/{id}")
+    public void exportToPdf(@PathVariable("id") Integer id, HttpServletResponse response, Model model) throws IOException {
+        response.setContentType("application/pdf");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd__HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=card_" + currentDateTime + ".pdf";
+
+        response.setHeader(headerKey, headerValue);
+
+        Card number = cardRepository.getById(id);
+        var result = number.getNumber();
+
+        List<Trip> trips = tripRepository.findALlByCard_Id(id);
+        List<Fuel> fuels = fuelRepository.findAllByCard_Id(id);
+        List<Counters> counters = countersRepository.findALlByCard_Id(id);
+
+        PdfExporter exporter = new PdfExporter(result, trips, fuels, counters);
+
+        exporter.export(response);
     }
 }
