@@ -75,7 +75,7 @@ public class AppController {
         return "redirect:/";
     }
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/pdf/{id}")
     public void exportToPdf(@PathVariable("id") Integer id, HttpServletResponse response, Model model) throws IOException {
         response.setContentType("application/pdf");
 
