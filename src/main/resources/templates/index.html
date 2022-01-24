@@ -6,33 +6,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
-<!--<div class="container text-center">
-    <div><h1>System zarządzania wyjazdami</h1></div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/cards}">Lista kart</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/cards/new}">Stwórz karte</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/trips}">Lista tras</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/trips/new}">Dodaj trase</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/fuel/new}">Dodaj tankowanie</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/fuels}">Lista tankowań</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/counters/new}">Liczniki pojazdu</a>
-    </div>
-    <div class="p-2">
-        <a class="h2" th:href="@{/counters}">Lista liczników</a>
-    </div>
-</div>-->
 <div class="container text-center">
     <div><h1>Generator kard drogowych</h1></div>
     <div>
@@ -53,7 +26,6 @@
                         <a th:href="@{'/delete/' + ${card.id}}">Usuń</a>
                         &nbsp;
                         <a th:href="@{/test/{id}(id=${card.id})}">Template</a>
-                        <p th:if="${message != null}" th:text="${message}" class="alert alert-danger" role="alert"></p>
                     </td>
                 </tr>
             </th:block>

@@ -2,7 +2,6 @@ package io.github.mateusztbh.transportappv3.Trip;
 
 import io.github.mateusztbh.transportappv3.Card.Card;
 import io.github.mateusztbh.transportappv3.Card.CardRepository;
-import io.github.mateusztbh.transportappv3.Counters.CountersController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,13 @@ public class TripController {
     private static final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @Autowired
-    private TripRepository tripRepository;
+    private final TripRepository tripRepository;
     @Autowired
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
 
-    @GetMapping("/trips/new")
-    public String showNewTripForm(Model model) {
-        List<Card> listCards = cardRepository.findAll();
-
-        model.addAttribute("trip", new Trip());
-        model.addAttribute("listCards", listCards);
-
-        return "trip_form";
+    public TripController(final TripRepository tripRepository, final CardRepository cardRepository) {
+        this.tripRepository = tripRepository;
+        this.cardRepository = cardRepository;
     }
 
     @GetMapping("/trips/new/{id}")
@@ -62,19 +56,11 @@ public class TripController {
         return "redirect:/list/" + result;
     }
 
+    /** Not completed feature **/
     @PostMapping(params = "addTrip", name = "/trip/save/{id}")
     public String addTripByCard_Id(@RequestParam(value = "id", required = false) Integer id, Trip trip, Card card) {
-//        tripRepository.save(trip);
         card.getTrip().add(new Trip());
         return "trip_form_by_card";
-    }
-
-    @GetMapping("/trips")
-    public String listTrips(Model model) {
-        List<Trip> listTrips = tripRepository.findAll();
-        model.addAttribute("listTrips", listTrips);
-
-        return "trips";
     }
 
     @GetMapping("/trip/edit/{id}")

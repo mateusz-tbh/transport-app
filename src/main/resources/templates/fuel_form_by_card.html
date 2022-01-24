@@ -7,32 +7,6 @@
 </head>
 <body>
 <div class="container text-center">
-
-    <div th:switch="${fuels}" class="container text-center">
-        <h2 th:case="null">Brak tankowań</h2>
-        <div th:case="*">
-            <h2>Paliwo</h2>
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                    <th>Data</th>
-                    <th>Miejscowość</th>
-                    <th>Licznik</th>
-                    <th>Ilość tankowania</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="fuel : ${fuels}">
-                    <td th:text="${fuel.fuelDate}"></td>
-                    <td th:text="${fuel.fuelLocation}"></td>
-                    <td th:text="${fuel.fuelCounter}"></td>
-                    <td th:text="${fuel.refuelingQuantity}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
     <div th:if="${fuel.id == null}"><h1>Dodaj nową trase</h1></div>
     <div th:unless="${fuel.id == null}"><h1>Edytuj trase</h1></div>
     <form th:action="@{/fuel/save/{id}}" th:object="${fuel}" method="post"

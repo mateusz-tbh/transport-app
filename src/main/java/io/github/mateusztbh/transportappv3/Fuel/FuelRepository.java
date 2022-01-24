@@ -11,6 +11,4 @@ public interface FuelRepository extends JpaRepository<Fuel, Integer> {
     Integer sumFuel();
 
     List<Fuel> findAllByCard_Id(Integer card_id);
-
-    Fuel findByCard_Id(Integer id);
 }
