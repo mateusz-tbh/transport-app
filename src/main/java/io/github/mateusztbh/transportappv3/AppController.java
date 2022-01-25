@@ -37,7 +37,7 @@ public class AppController {
     @Autowired
     private final TripRepository tripRepository;
 
-    AppController(final CardRepository cardRepository, final CountersRepository countersRepository, final FuelRepository fuelRepository, final TripRepository tripRepository) {
+    public AppController(final CardRepository cardRepository, final CountersRepository countersRepository, final FuelRepository fuelRepository, final TripRepository tripRepository) {
         this.cardRepository = cardRepository;
         this.countersRepository = countersRepository;
         this.fuelRepository = fuelRepository;
