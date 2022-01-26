@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,7 +60,7 @@ public class AppController {
 
     @PostMapping("/save")
     public String saveCard(@Valid Card card, Model model) {
-        if(cardRepository.existsByNumber(card.getNumber())) {
+        if (cardRepository.existsByNumber(card.getNumber())) {
             model.addAttribute("message", "Karta o danym numerze istnieje");
             return "card_form";
         } else {
@@ -69,10 +70,23 @@ public class AppController {
         }
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteCard(@PathVariable("id") Integer id, Model model) {
-        cardRepository.deleteById(id);
+    @GetMapping("/error")
+    public String errorPage(Model model) {
+        model.addAttribute("message", "Nie masz uprawnien");
         return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCard(@Valid @PathVariable("id") Integer id, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            logger.info("error");
+            model.addAttribute("message", "Forbidden");
+            return "redirect:/";
+        } else  {
+            logger.info("no error");
+            cardRepository.deleteById(id);
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/pdf/{id}")
