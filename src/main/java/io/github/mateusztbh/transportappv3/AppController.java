@@ -70,23 +70,10 @@ public class AppController {
         }
     }
 
-    @GetMapping("/error")
-    public String errorPage(Model model) {
-        model.addAttribute("message", "Nie masz uprawnien");
-        return "redirect:/";
-    }
-
     @GetMapping("/delete/{id}")
-    public String deleteCard(@Valid @PathVariable("id") Integer id, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            logger.info("error");
-            model.addAttribute("message", "Forbidden");
-            return "redirect:/";
-        } else  {
-            logger.info("no error");
+    public String deleteCard(@PathVariable("id") Integer id) {
             cardRepository.deleteById(id);
             return "redirect:/";
-        }
     }
 
     @GetMapping("/pdf/{id}")
