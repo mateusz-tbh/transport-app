@@ -8,18 +8,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long idd;
+    private Long id;
     private String username;
     private String password;
     private String role;
     private boolean enabled;
 
-    public Long getIdd() {
-        return idd;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdd(final Long idd) {
-        this.idd = idd;
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
