@@ -22,5 +22,5 @@ Application is also available at (https://transport-app-v3.herokuapp.com/), info
 
 ### Login
 Data to test account
-* login - user@gmail.com
-* password - password
+* login: user@gmail.com
+* password: password
